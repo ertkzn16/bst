@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install --save-dev typescript @types/react @types/node @types/react-dom tailwindcss postcss autoprefixer eslint eslint-config-next)",
+      "Bash(npm install recharts yahoo-finance2 date-fns)",
+      "Bash(mkdir -p app/components app/lib data public)",
+      "Bash(npx tailwindcss init -p)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
