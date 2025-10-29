@@ -41,6 +41,12 @@ export default function RootLayout({
                 >
                   Ana Sayfa
                 </Link>
+                <Link
+                  href="/about"
+                  className="text-white hover:text-blue-100 transition-colors font-medium"
+                >
+                  Hakkında
+                </Link>
                 {/* Add more navigation links here as new pages are created */}
               </nav>
             </div>

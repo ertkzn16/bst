@@ -329,4 +329,29 @@ Bu projede kullanılan konseptler:
 
 ---
 
+## 🛠️ Geliştirme Kuralları (Development Guidelines)
+
+### Yeni Sayfa Oluştururken
+
+**ÖNEMLİ:** Yeni page component'leri oluştururken **mutlaka** header navigation'a link ekleyin!
+
+**Lokasyon:** `app/layout.tsx` dosyasındaki `<nav>` bölümü
+
+**Örnek:**
+```tsx
+<nav className="flex items-center gap-6">
+  <Link href="/" className="text-white hover:text-blue-100 transition-colors font-medium">
+    Ana Sayfa
+  </Link>
+  <Link href="/portfolio" className="text-white hover:text-blue-100 transition-colors font-medium">
+    Portföy
+  </Link>
+  {/* Yeni sayfalar buraya eklenir */}
+</nav>
+```
+
+Bu kural, kullanıcı deneyimi ve navigasyon tutarlılığı için kritiktir.
+
+---
+
 **Geliştirici Notu:** Bu proje web geliştirme ve finans teknolojileri öğrenmek için hazırlanmıştır. Gerçek yatırım kararlarınızda kullanmayın! 📚💻
