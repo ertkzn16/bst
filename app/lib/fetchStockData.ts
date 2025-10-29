@@ -128,7 +128,7 @@ export async function fetchCurrentQuote(symbol: string) {
     return {
       symbol: meta.symbol,
       regularMarketPrice: meta.regularMarketPrice ?? 0,
-      regularMarketChange: meta.regularMarketPrice - meta.previousClose ?? 0,
+      regularMarketChange: (meta.regularMarketPrice - meta.previousClose) ?? 0,
       regularMarketChangePercent: ((meta.regularMarketPrice - meta.previousClose) / meta.previousClose * 100) ?? 0,
       regularMarketDayHigh: meta.regularMarketDayHigh ?? 0,
       regularMarketDayLow: meta.regularMarketDayLow ?? 0,
