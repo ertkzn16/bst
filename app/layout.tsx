@@ -22,50 +22,43 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={inter.className}>
-        {/* Header */}
-        <header className="bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
-          <div className="container mx-auto px-4 py-6">
+        {/* Header - Minimalist Design */}
+        <header className="border-b border-gray-200 bg-white">
+          <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
-              <div>
-                <Link href="/" className="hover:opacity-80 transition-opacity">
-                  <h1 className="text-3xl font-bold">📈 BIST Borsa Analiz</h1>
-                  <p className="text-blue-100 text-sm mt-1">
-                    Hisse senedi takip ve teknik analiz platformu
-                  </p>
-                </Link>
-              </div>
-              <nav className="flex items-center gap-6">
+              <Link href="/" className="group">
+                <h1 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  Teknik Analiz
+                </h1>
+              </Link>
+              <nav className="flex items-center gap-8">
                 <Link
                   href="/"
-                  className="text-white hover:text-blue-100 transition-colors font-medium"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   Ana Sayfa
                 </Link>
                 <Link
                   href="/about"
-                  className="text-white hover:text-blue-100 transition-colors font-medium"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   Hakkında
                 </Link>
-                {/* Add more navigation links here as new pages are created */}
               </nav>
             </div>
           </div>
         </header>
 
         {/* Main Content */}
-        <main className="min-h-screen bg-gray-50">
+        <main className="min-h-screen">
           {children}
         </main>
 
-        {/* Footer */}
-        <footer className="bg-gray-900 text-white py-8">
-          <div className="container mx-auto px-4 text-center">
-            <p className="text-sm text-gray-400">
-              © 2025 BIST Borsa Analiz - Eğitim Amaçlı Proje
-            </p>
-            <p className="text-xs text-gray-500 mt-2">
-              Veriler Yahoo Finance API&apos;den çekilmektedir. Yatırım tavsiyesi değildir.
+        {/* Footer - Minimalist */}
+        <footer className="border-t border-gray-200 py-8 mt-16">
+          <div className="container mx-auto px-6 text-center">
+            <p className="text-xs text-gray-500">
+              © 2025 BIST Analiz - Eğitim amaçlı proje
             </p>
           </div>
         </footer>

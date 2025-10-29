@@ -131,115 +131,81 @@ export default function HomePage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Başlık Bölümü */}
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">
-          Hoş Geldiniz 👋
-        </h2>
-        <p className="text-gray-600">
-          BIST hisse senetlerini takip edin, teknik analiz yapın ve grafik verilerini görselleştirin
-        </p>
-      </div>
-
-      {/* Hisse Arama Bölümü */}
-      <div className="mb-8">
+    <div className="container mx-auto px-6 py-12 max-w-7xl">
+      {/* Hisse Arama - Minimalist */}
+      <div className="mb-12">
         <StockSelector onAddStock={handleAddStock} loading={isAddingStock} />
       </div>
 
-      {/* Teknik Analiz Menüsü */}
-      <div className="mb-8">
+      {/* Teknik Analiz */}
+      <div className="mb-12">
         <TechnicalMenu
           selectedIndicator={technicalIndicator}
           onSelect={setTechnicalIndicator}
         />
       </div>
 
-      {/* Hisse Grafikleri */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-2xl font-bold text-gray-900">
-            Hisse Grafikleri
-          </h3>
-          <p className="text-sm text-gray-500">
-            {stocks.length} hisse gösteriliyor
+      {/* Grafik Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {stocks.map((stock) => (
+          <div key={stock.symbol} className="relative">
+            {/* Silme butonu - Minimalist */}
+            {stocks.length > 1 && (
+              <button
+                onClick={() => handleRemoveStock(stock.symbol)}
+                className="absolute top-4 right-4 z-10 text-gray-400 hover:text-red-500 transition-colors"
+                title="Kaldır"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            )}
+
+            {/* Hata durumu */}
+            {stock.error ? (
+              <div className="bg-white border border-gray-200 rounded-xl p-8">
+                <h3 className="text-lg font-medium mb-3">{stock.name}</h3>
+                <div className="text-center py-8">
+                  <p className="text-sm text-red-500 mb-3">{stock.error}</p>
+                  <button
+                    onClick={() => handleRemoveStock(stock.symbol)}
+                    className="text-xs text-gray-500 hover:text-gray-700 underline"
+                  >
+                    Kaldır
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <ChartCard
+                symbol={stock.symbol}
+                name={stock.name}
+                data={stock.data}
+                technicalIndicator={technicalIndicator}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Boş durum */}
+      {stocks.length === 0 && (
+        <div className="text-center py-20">
+          <p className="text-sm text-gray-400">
+            Hisse eklemek için yukarıdaki arama kutusunu kullanın
           </p>
         </div>
-
-        {/* Grafik Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {stocks.map((stock) => (
-            <div key={stock.symbol} className="relative">
-              {/* Silme butonu */}
-              {stocks.length > 1 && (
-                <button
-                  onClick={() => handleRemoveStock(stock.symbol)}
-                  className="absolute top-4 right-4 z-10 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-colors"
-                  title="Kaldır"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              )}
-
-              {/* Hata durumu */}
-              {stock.error ? (
-                <div className="bg-white rounded-lg shadow-md p-6">
-                  <h3 className="text-xl font-bold mb-4">{stock.name} ({stock.symbol})</h3>
-                  <div className="text-center py-12">
-                    <p className="text-red-500 mb-2">❌ {stock.error}</p>
-                    <button
-                      onClick={() => handleRemoveStock(stock.symbol)}
-                      className="text-sm text-blue-600 hover:underline"
-                    >
-                      Kaldır
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                // Grafik kartı
-                <ChartCard
-                  symbol={stock.symbol}
-                  name={stock.name}
-                  data={stock.data}
-                  technicalIndicator={technicalIndicator}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Hisse yoksa mesaj */}
-        {stocks.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500">
-              Henüz hisse eklenmedi. Yukarıdaki arama kutusunu kullanarak hisse ekleyebilirsiniz.
-            </p>
-          </div>
-        )}
-      </div>
-
-      {/* Bilgilendirme Bölümü */}
-      <div className="mt-12 bg-blue-50 border-l-4 border-blue-500 p-6 rounded">
-        <h3 className="font-bold text-gray-900 mb-2">ℹ️ Bilgilendirme</h3>
-        <ul className="text-sm text-gray-700 space-y-1">
-          <li>• Veriler Yahoo Finance API&apos;den gerçek zamanlı olarak çekilmektedir</li>
-          <li>• Varsayılan olarak son 2 yıllık günlük veriler gösterilir</li>
-          <li>• Teknik analiz göstergeleri otomatik olarak hesaplanır</li>
-          <li>• Bu uygulama sadece eğitim amaçlıdır, yatırım tavsiyesi değildir</li>
-        </ul>
-      </div>
+      )}
     </div>
   );
 }
